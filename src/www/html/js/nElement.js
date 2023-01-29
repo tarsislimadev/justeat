@@ -11,7 +11,7 @@ class nElement {
       tagName: 'div',
     },
     component: {
-      name: 'bug',
+      name: 'component',
     }
   }
 
@@ -46,13 +46,18 @@ class nElement {
   }
 
   static fromElement(el = document.createElement('')) {
-    const bug = new nElement()
-    bug.element = el
-    return bug
+    const component = new nElement()
+    component.element = el
+    return component
   }
 
   static fromId(id) {
     return nElement.fromElement(document.getElementById(id))
+  }
+
+  addClass(value) {
+    this.element.classList.add(value)
+    return this
   }
 
   setContainerStyle(name, value) {
@@ -412,5 +417,20 @@ class nCenter extends nElement {
 
     this.setStyle('margin', '0 auto')
     this.setStyle('width', '42rem')
+  }
+}
+
+
+class nInputTextGroup extends nElement {
+  label = new nLabel
+  input = new nInputText
+  error = new nError
+
+  constructor() {
+    super({ component: { name: 'input-text-group' } })
+
+    this.append(this.label)
+    this.append(this.input)
+    this.append(this.error)
   }
 }

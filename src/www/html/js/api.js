@@ -47,43 +47,50 @@ Base.insert = (name, data) => Base.select(name)
   .then(() => ({ status: 'ok' }))
 
 Base.find = (name, id) => Base.select(name)
-    .then((res) => res.getArray('list'))
-    .then((list) => list.find((item) => item['_id'] === id))
-    .then((item) => new DataResult({ item }))
+  .then((res) => res.getArray('list'))
+  .then((list) => list.find((item) => item['_id'] === id))
+  .then((item) => new DataResult({ item }))
 
 Base.update = (name, id, data) => Base.select(name)
-    .then((res) => res.getArray('list'))
-    .then((list) => list.map((item) => item['_id'] === id ? data : item))
-    .then((list) => localStorage.setItem(['base', name].join('.'), JSON.stringify(list)))
-    .then(() => ({ status: 'ok' }))
-  
-class FormConstructor {
+  .then((res) => res.getArray('list'))
+  .then((list) => list.map((item) => item['_id'] === id ? data : item))
+  .then((list) => localStorage.setItem(['base', name].join('.'), JSON.stringify(list)))
+  .then(() => ({ status: 'ok' }))
+
+class Forms {
   fields = []
 
-  with(fields = {}) {
+  static with(fields = {}) {
     this.fields = this.fields
       .concat(Object.keys(fields).map((key) => ({ key, value: fields[key] })))
 
     return this
   }
 
-  validate(vlds) {
+  static validate(vlds) {
     return new Promise((s, _) => s()) // FIXME
   }
 }
 
-const Forms = new FormConstructor
+class Flow {
 
-class FlowConstructor {
-
-  goTo(name) {
+  static goTo(name, value = undefined) {
     if (!name) throw new Error('Page error')
+    Flow.set(name, value)
     window.location = name
   }
 
-}
+  static set(name, value = undefined) {
+    return localStorage.setItem(['flow', name].join('.'), JSON.stringify(value))
+  }
 
-const Flow = new FlowConstructor
+  static retrieve(name, def = undefined) {
+    try { return JSON.parse(localStorage.getItem(['flow', name].join('.'))) }
+    catch (e) { console.error(e) }
+    return def
+  }
+
+}
 
 const Validations = {
   required: (value, errorMessage = 'Required field.') => !value ? errorMessage : 'Required',

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Eat</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./js/nElement.js"></script>
+  <script src="./js/api.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+
+    const title = new nH1()
+    title.setText('New item')
+    app.append(title)
+
+    const name = new nInputTextGroup()
+    name.label.setText('Name')
+    app.append(name)
+
+    const price = new nInputTextGroup()
+    price.label.setText('Price')
+    app.append(price)
+
+    const quantity = new nInputTextGroup()
+    quantity.label.setText('Quantity')
+    app.append(quantity)
+
+    const button = new nButton()
+    button.setText('create')
+    button.on('click', () => {
+      const list = Flow.retrieve('list', [])
+
+      list.push({
+        name: name.input.getValue(),
+        price: price.input.getValue(),
+        quantity: quantity.input.getValue(),
+      })
+
+      console.log({ list })
+
+      Flow.set('list', list)
+      Flow.goTo('index.html')
+    })
+    app.append(button)
+
+  </script>
+</body>
+
+</html>

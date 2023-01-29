@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Eat</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./js/nElement.js"></script>
+  <script src="./js/api.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+
+    const title = new nH1()
+    title.setText('Item')
+    app.append(title)
+
+    const item = Flow.from('./item.html', { id })
+    console.log({ item })
+  </script>
+</body>
+
+</html>

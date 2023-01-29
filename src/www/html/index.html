@@ -9,7 +9,50 @@
 </head>
 
 <body>
+  <div id="app"></div>
 
+  <script src="./js/nElement.js"></script>
+  <script src="./js/api.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+
+    const title = new nH1()
+    title.setText('Just Eat')
+    app.append(title)
+
+    const list = new nElement()
+    list.addClass('list')
+    app.append(list)
+
+    const button = new nButton()
+    button.setText('add item')
+    button.on('click', () => Flow.goTo('create.html'))
+    app.append(button)
+
+    Flow.retrieve('list', [])
+      .map(({ name = '', price = '', quantity = '' } = {}, id) => {
+        const item = new nElement()
+        item.on('click', () => Flow.goTo('item.html', { id }))
+
+        const idEl = new nElement()
+        idEl.setText(`Id: ${id + 1}`)
+        item.append(idEl)
+
+        const nameEl = new nElement()
+        nameEl.setText(`Name: ${name}`)
+        item.append(nameEl)
+
+        const priceEl = new nElement()
+        priceEl.setText(`Price: R$ ${(+price).toFixed(2)}`)
+        item.append(priceEl)
+
+        const quantityEl = new nElement()
+        quantityEl.setText(`Quantity: ${quantity}`)
+        item.append(quantityEl)
+
+        list.append(item)
+      })
+  </script>
 </body>
 
 </html>

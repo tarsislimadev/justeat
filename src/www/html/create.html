@@ -35,15 +35,13 @@
     const button = new nButton()
     button.setText('create')
     button.on('click', () => {
-      const list = Flow.retrieve('list', [])
+      const list = Flow.retrieve('list', []) || []
 
       list.push({
         name: name.input.getValue(),
         price: price.input.getValue(),
         quantity: quantity.input.getValue(),
       })
-
-      console.log({ list })
 
       Flow.set('list', list)
       Flow.goTo('index.html')

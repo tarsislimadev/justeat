@@ -12,21 +12,18 @@
   <div id="app"></div>
 
   <script src="./js/nElement.js"></script>
+  <script src="./js/components.js"></script>
   <script src="./js/api.js"></script>
   <script>
     const app = nElement.fromId('app')
 
-    const title = new nH1()
-    title.setText('Just Eat')
-    app.append(title)
+    addTitlePage('Just Eat')
 
     const list = new nElement()
     list.addClass('list')
     app.append(list)
 
-    const button = new nButton()
-    button.setText('add item')
-    button.on('click', () => Flow.goTo('create.html'))
+    const button = createFloatingButton('+', () => Flow.goTo('create.html'))
     app.append(button)
 
     Flow.retrieve('list', [])

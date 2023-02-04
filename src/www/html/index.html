@@ -31,21 +31,27 @@
         const item = new nElement()
         item.on('click', () => Flow.goTo('item.html', { id }))
 
-        const idEl = new nElement()
-        idEl.setText(`Id: ${id + 1}`)
-        item.append(idEl)
+        item.setStyle('background-color', 'black')
+        item.setStyle('margin-bottom', '1rem')
+        item.setStyle('padding', '1rem')
+        item.setStyle('color', 'white')
 
         const nameEl = new nElement()
-        nameEl.setText(`Name: ${name}`)
+        nameEl.setText(name)
+        nameEl.setStyle('margin-bottom', '1rem')
         item.append(nameEl)
 
+        const bottom = new nFlex()
+
         const priceEl = new nElement()
-        priceEl.setText(`Price: R$ ${(+price).toFixed(2)}`)
-        item.append(priceEl)
+        priceEl.setText(`R$ ${(+price).toFixed(2)}`)
+        bottom.append(priceEl)
 
         const quantityEl = new nElement()
-        quantityEl.setText(`Quantity: ${quantity}`)
-        item.append(quantityEl)
+        quantityEl.setText(`${quantity} items`)
+        bottom.append(quantityEl)
+
+        item.append(bottom)
 
         list.append(item)
       })

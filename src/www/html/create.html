@@ -12,13 +12,12 @@
   <div id="app"></div>
 
   <script src="./js/nElement.js"></script>
+  <script src="./js/components.js"></script>
   <script src="./js/api.js"></script>
   <script>
     const app = nElement.fromId('app')
 
-    const title = new nH1()
-    title.setText('New item')
-    app.append(title)
+    addTitlePage('New item')
 
     const name = new nInputTextGroup()
     name.label.setText('Name')
@@ -34,6 +33,10 @@
 
     const button = new nButton()
     button.setText('create')
+    button.setStyle('background-color', 'black')
+    button.setStyle('display', 'inline-block')
+    button.setStyle('color', 'white')
+    button.setStyle('width', '100%')
     button.on('click', () => {
       const list = Flow.retrieve('list', []) || []
 
@@ -47,6 +50,14 @@
       Flow.goTo('index.html')
     })
     app.append(button)
+
+    const link = new nLink()
+    link.setContainerStyle('text-align', 'center')
+    link.setContainerStyle('padding', '1rem')
+    link.setStyle('margin', '1rem')
+    link.setText('cancel')
+    link.href('index.html')
+    app.append(link)
 
   </script>
 </body>

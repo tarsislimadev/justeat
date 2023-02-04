@@ -55,6 +55,11 @@ class nElement {
     return nElement.fromElement(document.getElementById(id))
   }
 
+  addContainerClass(value) {
+    this.container.classList.add(value)
+    return this
+  }
+
   addClass(value) {
     this.element.classList.add(value)
     return this
@@ -420,7 +425,6 @@ class nCenter extends nElement {
   }
 }
 
-
 class nInputTextGroup extends nElement {
   label = new nLabel
   input = new nInputText
@@ -429,8 +433,14 @@ class nInputTextGroup extends nElement {
   constructor() {
     super({ component: { name: 'input-text-group' } })
 
+    const id = Date.now()
+
+    this.label.setAttr('for', id)
     this.append(this.label)
+
+    this.input.setAttr('id', id)
     this.append(this.input)
+
     this.append(this.error)
   }
 }

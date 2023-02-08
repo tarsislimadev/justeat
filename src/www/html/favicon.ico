@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Eat</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./js/nElement.js"></script>
+  <script src="./js/components.js"></script>
+  <script src="./js/api.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+
+    addTitlePage('Just Eat')
+
+    const list = new nElement()
+    list.addClass('list')
+    app.append(list)
+
+    const button = createFloatingButton('+', () => Flow.goTo('create.html'))
+    app.append(button)
+
+    Flow.retrieve('list', [])
+      .map(({ name = '', price = '', quantity = '' } = {}, id) => {
+        const item = new nElement()
+        item.on('click', () => Flow.goTo('item.html', { id }))
+
+        item.setStyle('background-color', 'black')
+        item.setStyle('margin-bottom', '1rem')
+        item.setStyle('padding', '1rem')
+        item.setStyle('color', 'white')
+
+        const nameEl = new nElement()
+        nameEl.setText(name)
+        nameEl.setStyle('margin-bottom', '1rem')
+        item.append(nameEl)
+
+        const bottom = new nFlex()
+
+        const priceEl = new nElement()
+        priceEl.setText(`R$ ${(+price).toFixed(2)}`)
+        bottom.append(priceEl)
+
+        const quantityEl = new nElement()
+        quantityEl.setText(`${quantity} items`)
+        bottom.append(quantityEl)
+
+        item.append(bottom)
+
+        list.append(item)
+      })
+  </script>
+</body>
+
+</html>

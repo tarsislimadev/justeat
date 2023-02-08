@@ -44,11 +44,11 @@
         const bottom = new nFlex()
 
         const priceEl = new nElement()
-        priceEl.setText(`R$ ${(+price).toFixed(2)}`)
+        priceEl.setText(`$ ${(+price).toFixed(2)}`)
         bottom.append(priceEl)
 
         const quantityEl = new nElement()
-        quantityEl.setText(`${quantity} items`)
+        quantityEl.setText(`${quantity} item(s)`)
         bottom.append(quantityEl)
 
         item.append(bottom)

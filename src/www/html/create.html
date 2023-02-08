@@ -38,16 +38,21 @@
     button.setStyle('color', 'white')
     button.setStyle('width', '100%')
     button.on('click', () => {
-      const list = Flow.retrieve('list', []) || []
-
-      list.push({
-        name: name.input.getValue(),
-        price: price.input.getValue(),
-        quantity: quantity.input.getValue(),
+      Api.addItem({
+        item: {
+          name: name.input.getValue(),
+          price: price.input.getValue(),
+          quantity: quantity.input.getValue(),
+        }
+      })
+      .catch((err) => {
+        if (err.type = 'form') {
+          name.error.setText(err.get('name'))
+          price.error.setText(err.get('price'))
+          quantity.error.setText(err.get('quantity'))
+        }
       })
 
-      Flow.set('list', list)
-      Flow.goTo('index.html')
     })
     app.append(button)
 

@@ -209,3 +209,39 @@ Api.update = (_id, { where, who, start_date, end_date, why }) =>
       ? Ajax.post([Ajax.servers.default.url, 'tasks', 'update'], data)
       : Base.update('tasks', _id, data)
     )
+
+class FormError extends Error {
+  type = 'form'
+  fields = []
+
+  constructor(fields = []) {
+    super('Form error')
+
+    this.fields = fields
+  }
+
+  get(key) {
+    return this.fields[key] || '' 
+  }
+}
+
+// FIXME
+Api.addItem = ({ item } = {}) => {
+  return new Promise(function (_, reject) {
+    try {
+      if (!item.name) throw new FormError({ name: 'Required field.' })
+      if (!item.price) throw new FormError({ price: 'Required field.' })
+      if (!item.quantity) throw new FormError({ quantity: 'Required field.' })
+
+      const list = Flow.retrieve('list', []) || []
+
+      list.push(item)
+
+      Flow.set('list', list)
+      return Flow.goTo('index.html')
+    } catch (e) {
+      console.error(e)
+      reject(e)
+    }
+  })
+}

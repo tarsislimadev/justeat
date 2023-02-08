@@ -87,6 +87,7 @@ class Flow {
   static retrieve(name, def = undefined) {
     try {
       return JSON.parse(localStorage.getItem(['flow', name].join('.')))
+        || def
     } catch (e) {
       console.error(e)
     }

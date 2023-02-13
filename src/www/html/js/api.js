@@ -233,12 +233,12 @@ Api.addItem = ({ item } = {}) => {
       if (!item.price) throw new FormError({ price: 'Required field.' })
       if (!item.quantity) throw new FormError({ quantity: 'Required field.' })
 
-      const list = Flow.retrieve('list', []) || []
+      const list = Flow.retrieve('/list', []) || []
 
       list.push(item)
 
       Flow.set('list', list)
-      return Flow.goTo('index.html')
+      return Flow.goTo('/index')
     } catch (e) {
       console.error(e)
       reject(e)

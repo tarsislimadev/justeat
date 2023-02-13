@@ -23,13 +23,13 @@
     list.addClass('list')
     app.append(list)
 
-    const button = createFloatingButton('+', () => Flow.goTo('create.html'))
+    const button = createFloatingButton('+', () => Flow.goTo('/create'))
     app.append(button)
 
-    Flow.retrieve('list', [])
+    Flow.retrieve('/list', [])
       .map(({ name = '', price = '', quantity = '' } = {}, id) => {
         const item = new nElement()
-        item.on('click', () => Flow.goTo('item.html', { id }))
+        item.on('click', () => Flow.goTo('/item', { id }))
 
         item.setStyle('background-color', 'black')
         item.setStyle('margin-bottom', '1rem')

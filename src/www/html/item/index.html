@@ -17,42 +17,49 @@
   <script>
     const app = nElement.fromId('app')
 
-    addTitlePage('New item')
+    const { id } = Flow.retrieve('/item', {})
+    const list = Flow.retrieve('/list', [])
+
+    if (!list[id]) {
+      Flow.goTo('/index', { errorMessage: 'Item not found.' })
+    }
+
+    const item = list[id]
+
+    addTitlePage(item.name)
 
     const name = new nInputTextGroup()
     name.label.setText('Name')
+    name.input.setValue(item.name)
     app.append(name)
 
     const price = new nInputTextGroup()
     price.label.setText('Price')
+    price.input.setValue(item.price)
     app.append(price)
 
     const quantity = new nInputTextGroup()
     quantity.label.setText('Quantity')
+    quantity.input.setValue(item.quantity)
     app.append(quantity)
 
     const button = new nButton()
-    button.setText('create')
+    button.setText('edit')
     button.setStyle('background-color', 'black')
     button.setStyle('display', 'inline-block')
     button.setStyle('color', 'white')
     button.setStyle('width', '100%')
     button.on('click', () => {
-      Api.addItem({
-        item: {
-          name: name.input.getValue(),
-          price: price.input.getValue(),
-          quantity: quantity.input.getValue(),
-        }
-      })
-      .catch((err) => {
-        if (err.type = 'form') {
-          name.error.setText(err.get('name'))
-          price.error.setText(err.get('price'))
-          quantity.error.setText(err.get('quantity'))
-        }
-      })
+      const list = Flow.retrieve('/list', []) || []
 
+      list[id] = {
+        name: name.input.getValue(),
+        price: price.input.getValue(),
+        quantity: quantity.input.getValue(),
+      }
+
+      Flow.set('list', list)
+      Flow.goTo('/index')
     })
     app.append(button)
 
@@ -61,8 +68,9 @@
     link.setContainerStyle('padding', '1rem')
     link.setStyle('margin', '1rem')
     link.setText('cancel')
-    link.href('index.html')
+    link.href('/index')
     app.append(link)
+
 
   </script>
 </body>

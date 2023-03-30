@@ -11,9 +11,9 @@
 <body>
   <div id="app"></div>
 
-  <script src="./js/nElement.js"></script>
-  <script src="./js/components.js"></script>
-  <script src="./js/api.js"></script>
+  <script src="/js/nElement.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/api.js"></script>
   <script>
     const app = nElement.fromId('app')
 
@@ -32,7 +32,7 @@
     app.append(quantity)
 
     const button = new nButton()
-    button.setText('/create')
+    button.setText('create')
     button.setStyle('background-color', 'black')
     button.setStyle('display', 'inline-block')
     button.setStyle('color', 'white')
@@ -61,7 +61,7 @@
     link.setContainerStyle('padding', '1rem')
     link.setStyle('margin', '1rem')
     link.setText('cancel')
-    link.href('index')
+    link.href('/')
     app.append(link)
 
   </script>

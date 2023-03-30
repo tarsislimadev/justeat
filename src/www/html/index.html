@@ -11,9 +11,9 @@
 <body>
   <div id="app"></div>
 
-  <script src="./js/nElement.js"></script>
-  <script src="./js/components.js"></script>
-  <script src="./js/api.js"></script>
+  <script src="/js/nElement.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/api.js"></script>
   <script>
     const app = nElement.fromId('app')
 
@@ -23,8 +23,25 @@
     list.addClass('list')
     app.append(list)
 
-    const button = createFloatingButton('+', () => Flow.goTo('/create'))
-    app.append(button)
+    const floatingButton = new nLink()
+    floatingButton.setText('+')
+    floatingButton.href({ pathname: '/create/' })
+    app.append(floatingButton)
+
+    floatingButton.setStyle('background-color', 'black')
+    floatingButton.setStyle('box-sizing', 'border-box')
+    floatingButton.setStyle('display', 'inline-block')
+    floatingButton.setStyle('text-align', 'center')
+    floatingButton.setStyle('border-radius', '50%')
+    floatingButton.setStyle('line-height', '3rem')
+    floatingButton.setStyle('height', '3rem')
+    floatingButton.setStyle('width', '3rem')
+    floatingButton.setStyle('color', 'white')
+    floatingButton.setStyle('width', '3rem')
+
+    floatingButton.setContainerStyle('position', 'fixed')
+    floatingButton.setContainerStyle('bottom', '2rem')
+    floatingButton.setContainerStyle('right', '2rem')
 
     Flow.retrieve('/list', [])
       .map(({ name = '', price = '', quantity = '' } = {}, id) => {

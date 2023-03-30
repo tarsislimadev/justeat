@@ -202,6 +202,7 @@ class nButton extends nElement {
     })
 
     this.setStyle('border', 'none')
+    this.setStyle('font', 'inherit')
     this.setStyle('outline', 'none')
     this.setStyle('padding', '1rem')
     this.setStyle('font-weight', 'bold')
@@ -220,6 +221,19 @@ class nLink extends nElement {
   }
 
   href(href) {
+    if ((typeof href) == 'object') {
+      const { location: l } = window
+
+      const {
+        protocol = l.protocol,
+        hostname = l.hostname,
+        port = l.port,
+        pathname = l.pathname,
+      } = href
+
+      href = `${protocol}//${hostname}:${port}${pathname}`
+    }
+
     this.setAttr('href', href)
     return this
   }

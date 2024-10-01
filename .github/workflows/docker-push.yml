@@ -7,7 +7,7 @@ on:
       - 'main'
 
 jobs:
-  docker-push:
+  push:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -18,6 +18,9 @@ jobs:
         with:
           username: tmvdl
           password: ${{ secrets.GITHUBDOCKER }}
+
+      - name: Install Docker Compose
+        run: sudo apt -y update && sudo apt -y install docker-compose
 
       - name: Docker build
         run: docker-compose build www
